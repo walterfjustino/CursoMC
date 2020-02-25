@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class PagamentoComBoleto extends Pagamento{	//Implementando Serializable (padrão: 1L)	
@@ -14,7 +15,9 @@ public class PagamentoComBoleto extends Pagamento{	//Implementando Serializable 
 	
 	/*Atributos básicos*/
 	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataVencimento;
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataPagamento;
 
 	/*CONSTRUTORES (não incluso coleções no construtor com parâmetros)*/

@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity											 // Essa anotação @Inheritance(strategy=InheritanceType.JOINED 
 @Inheritance(strategy=InheritanceType.JOINED)	 //define se às tabelas Herdadas(PagamentoComCartão e PagamentoComBoleto) será 1 tabela para cada*/
@@ -26,6 +27,7 @@ public abstract class Pagamento implements Serializable { //Implementando Serial
 	
 	/*ASSOCIAÇÕES (iniciando às coleções)*/
 	
+	@JsonBackReference	
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId
