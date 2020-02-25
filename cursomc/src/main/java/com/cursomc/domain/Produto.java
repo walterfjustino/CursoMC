@@ -16,19 +16,21 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
-public class Produto implements Serializable {
+public class Produto implements Serializable {	//Implementando Serializable (padrão: 1L)	
 	private static final long serialVersionUID = 1L;
 	
+	/*Atributos básicos*/
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	//Gera o Id automaticamente
 	private Integer id;
 	private String nome;
 	private Double preco; 
 	
+	/*ASSOCIAÇÕES (iniciando às coleções)*/
 	
 	@JsonBackReference
-	@ManyToMany
+	@ManyToMany									// Mapeamento Muitos para Muitos
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 		joinColumns = @JoinColumn(name = "produto_id"),
 		inverseJoinColumns = @JoinColumn(name = "categoria_id")
@@ -36,15 +38,23 @@ public class Produto implements Serializable {
 	
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	/*CONSTRUTORES (não incluso coleções no construtor com parâmetros)*/
+	
+	//Construtor vazio
+	
 	public Produto() {
 	}
-
+	
+	//Construtor com parâmetros
+	
 	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
+	
+	/*Getters e setters*/
 
 	public Integer getId() {
 		return id;
@@ -78,6 +88,8 @@ public class Produto implements Serializable {
 		this.categorias = categorias;
 	}
 
+	/* hashCode e equals (implementação padrão: somente id) */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

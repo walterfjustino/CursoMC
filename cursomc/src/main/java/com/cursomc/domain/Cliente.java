@@ -18,30 +18,45 @@ import com.cursomc.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Cliente implements Serializable {
+public class Cliente implements Serializable {	//Implementando Serializable (padrão: 1L)	
 	private static final long serialVersionUID = 1L;
 	
+	
+	/*Atributos básicos*/
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //Gera o Id automaticamente
 	private Integer id;
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	
+	/*ASSOCIAÇÕES (iniciando às coleções)*/
+	
 	@JsonManagedReference	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente")	// Mapeamento 1 para Muitos
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
+	/*CONSTRUTORES (não incluso coleções no construtor com parâmetros)*/
+	
+	//Construtor vazio
+	
 	public Cliente() {
 		
 		
 	}
 
+	//Construtor com parâmetros
+	
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
@@ -50,6 +65,8 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = tipo.getCod();
 	}
+	
+	/*Getters e setters*/
 
 	public Integer getId() {
 		return id;
@@ -107,6 +124,16 @@ public class Cliente implements Serializable {
 		this.telefones = telefones;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
+	/* hashCode e equals (implementação padrão: somente id) */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,6 +158,8 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+
+
 	
 	
 	

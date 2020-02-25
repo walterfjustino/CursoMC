@@ -13,29 +13,40 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Estado implements Serializable {
+public class Estado implements Serializable {	//Implementando Serializable (padrão: 1L)	
 	private static final long serialVersionUID = 1L;
 	
+	/*Atributos básicos*/
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	//Gera o Id automaticamente
 	private Integer id;
 	private String nome;
 	
+	/*ASSOCIAÇÕES (iniciando às coleções)*/
+	
 	@JsonBackReference
-	@OneToMany(mappedBy="estado")
+	@OneToMany(mappedBy="estado")	// Mapeamento 1 para Muitos
 	private List<Cidade> cidades = new ArrayList<>();
 	
+	/*CONSTRUTORES (não incluso coleções no construtor com parâmetros)*/
+	
+	//Construtor vazio
 	
 	public Estado() {
 		
 	}
 
+	//Construtor com parâmetros
+	
 	public Estado(Integer id, String nome) {
 		super();
 		this.id = id;
 		this.nome = nome;
 	}
 
+	/*Getters e setters*/
+	
 	public Integer getId() {
 		return id;
 	}
@@ -59,6 +70,8 @@ public class Estado implements Serializable {
 	public void setCidades(List<Cidade> cidades) {
 		this.cidades = cidades;
 	}
+	
+	/* hashCode e equals (implementação padrão: somente id) */
 
 	@Override
 	public int hashCode() {

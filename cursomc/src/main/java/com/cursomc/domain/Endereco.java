@@ -13,11 +13,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
-public class Endereco  implements Serializable {
+public class Endereco  implements Serializable {	//Implementando Serializable (padrão: 1L)	
 	private static final long serialVersionUID = 1L;
 	
+	/*Atributos básicos*/
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	//Gera o Id automaticamente
 	private Integer id;
 	private String logradouro;
 	private String numero;
@@ -25,19 +27,26 @@ public class Endereco  implements Serializable {
 	private String bairro;
 	private String cep;
 	
+	/*ASSOCIAÇÕES (iniciando às coleções)*/
+	
 	@JsonBackReference	
-	@ManyToOne
+	@ManyToOne					// Mapeamentos Muitos para 1
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
-	@ManyToOne
+	@ManyToOne					// Mapeamento Muitos para 1
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
+	/*CONSTRUTORES (não incluso coleções no construtor com parâmetros)*/
+	
+	//Construtor vazio
 	
 	public Endereco () {
 				
 	}
+	
+	//Construtor com parâmetros
 
 	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
 			Cliente cliente, Cidade cidade) {
@@ -51,6 +60,8 @@ public class Endereco  implements Serializable {
 		this.cliente = cliente;
 		this.setCidade(cidade);
 	}
+	
+	/*Getters e setters*/
 
 	public Integer getId() {
 		return id;
@@ -115,6 +126,8 @@ public class Endereco  implements Serializable {
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
+	
+	/* hashCode e equals (implementação padrão: somente id) */
 
 	@Override
 	public int hashCode() {
