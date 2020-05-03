@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -36,9 +37,9 @@ public class Cliente implements Serializable {	//Implementando Serializable (pad
 	/*ASSOCIAÇÕES (iniciando às coleções)*/
 	
 		
-	@OneToMany(mappedBy = "cliente")	// Mapeamento 1 para Muitos
-	private List<Endereco> enderecos = new ArrayList<>();
-	
+	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)// Mapeamento 1 para Muitos // cascade=CascadeType.ALL
+	private List<Endereco> enderecos = new ArrayList<>();							// Determina que qualquer alteração no cliente
+																					// reflete nos Endereços
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
