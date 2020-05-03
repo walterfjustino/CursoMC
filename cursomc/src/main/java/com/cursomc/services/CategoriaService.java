@@ -37,8 +37,9 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) throws ObjectNotFoundException {
-		find(obj.getId());
-		return repo.save(obj);	//quando o ID já existe ele só atualiza
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);	//quando o ID já existe ele só atualiza
 	}
 	public void delete(Integer id) throws ObjectNotFoundException {
 		find(id);
@@ -62,6 +63,10 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+		
 	}
 }
 
