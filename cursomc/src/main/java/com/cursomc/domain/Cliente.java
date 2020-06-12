@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ public class Cliente implements Serializable {	//Implementando Serializable (pad
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //Gera o Id automaticamente
 	private Integer id;
 	private String nome;
+	
+	@Column(unique = true)//NÃO PERMITE DUPLICIDADE DE EMAIL
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
