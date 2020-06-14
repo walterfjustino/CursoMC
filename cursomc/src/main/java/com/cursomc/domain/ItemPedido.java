@@ -41,6 +41,10 @@ public class ItemPedido implements Serializable {		//Implementando Serializable 
 		this.preco = preco;
 	}
 	
+	public double getSubTotal() { //utilizado o get, para que o método seja reconhecido pelo JSON e serializado
+		return (preco - desconto) * quantidade;
+	}
+	
 	/*Getters e setters*/
 	
 	@JsonIgnore	
