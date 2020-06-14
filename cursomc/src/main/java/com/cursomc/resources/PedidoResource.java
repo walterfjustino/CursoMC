@@ -14,7 +14,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value="/pedidos")
-public class PedidoResources {
+public class PedidoResource {
 	
 	@Autowired
 	private PedidoService service;
