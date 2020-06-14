@@ -12,9 +12,11 @@ import javax.persistence.OneToOne;
 
 import com.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity											 // Essa anotação @Inheritance(strategy=InheritanceType.JOINED 
 @Inheritance(strategy=InheritanceType.JOINED)	 //define se às tabelas Herdadas(PagamentoComCartão e PagamentoComBoleto) será 1 tabela para cada*/
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")//Informa que a Classe pagamento terá um campo adicional @TYPE
 public abstract class Pagamento implements Serializable { //Implementando Serializable (padrão: 1L)	
 	private static final long serialVersionUID = 1L;
 
